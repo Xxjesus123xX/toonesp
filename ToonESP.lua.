@@ -1,0 +1,15 @@
+-- ToonESP
+-- Base inicial del proyecto
+
+local Players = game:GetService("Players")
+
+local ToonESP = {
+    Enabled = true,
+    Machines = true,
+    Twisteds = true,
+    Capsules = true
+}
+
+print("ToonESP iniciado correctamente")
+
+return ToonESP
