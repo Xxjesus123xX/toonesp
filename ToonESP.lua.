@@ -1,45 +1,63 @@
 
--- ToonESP - Panel inicial
+-- TOON ESP - Version 1
+-- Interfaz inicial para Roblox Studio
 
 local Players = game:GetService("Players")
+
 local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local oldGui = playerGui:FindFirstChild("ToonESP")
+if oldGui then
+    oldGui:Destroy()
+end
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "ToonESP"
 gui.ResetOnSpawn = false
+gui.Parent = playerGui
 
 local panel = Instance.new("Frame")
-panel.Size = UDim2.new(0, 230, 0, 190)
-panel.Position = UDim2.new(0.5, -115, 0.5, -95)
-panel.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+panel.Size = UDim2.fromOffset(240, 210)
+panel.Position = UDim2.new(0.5, -120, 0.5, -105)
+panel.BackgroundColor3 = Color3.fromRGB(30, 30, 42)
 panel.Parent = gui
 
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10)
+corner.Parent = panel
+
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 35)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundColor3 = Color3.fromRGB(85, 55, 130)
 title.Text = "TOON ESP"
 title.TextColor3 = Color3.new(1, 1, 1)
-title.BackgroundColor3 = Color3.fromRGB(65, 45, 90)
+title.TextSize = 20
+title.Font = Enum.Font.GothamBold
 title.Parent = panel
 
-local function makeButton(name, y)
+local function createButton(name, position)
     local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0.85, 0, 0, 35)
-    button.Position = UDim2.new(0.075, 0, 0, y)
-    button.Text = name .. ": ON"
+    button.Size = UDim2.new(0.85, 0, 0, 38)
+    button.Position = UDim2.new(0.075, 0, 0, position)
+    button.BackgroundColor3 = Color3.fromRGB(65, 65, 85)
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.TextSize = 15
+    button.Font = Enum.Font.Gotham
+    button.Text = name .. " : ON"
     button.Parent = panel
 
     local enabled = true
+
     button.MouseButton1Click:Connect(function()
         enabled = not enabled
-        button.Text = name .. (enabled and ": ON" or ": OFF")
+        button.Text = name .. (enabled and " : ON" or " : OFF")
     end)
 end
 
-makeButton("Machines", 50)
-makeButton("Twisteds", 95)
-makeButton("Capsules", 140)
+createButton("Machines", 55)
+createButton("Twisteds", 100)
+createButton("Capsules", 145)
 
 panel.Active = true
 panel.Draggable = true
-
-gui.Parent = player:WaitForChild("PlayerGui")
